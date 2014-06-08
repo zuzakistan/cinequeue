@@ -2,7 +2,6 @@ extends skeleton
 block append styles
 	link(rel="stylesheet",href="/playlist.css",type="text/css")
 block append scripts
-	script(src='/socket.io/socket.io.js')
 	script(src="/playlist.js")
 block content
 	form.addurl(action="add/", method="post")
