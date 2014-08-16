@@ -73,6 +73,11 @@ ul.controls {
 	padding: 1em;
 	margin: 0;
 	font-size: 0.8em;
+	/* css 3 flexible content */
+	justify-content: center;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: flex;
 }
 .controls li .button {
 	border-radius:0;
@@ -108,9 +113,6 @@ ul.controls li {
 .bar {
 	background-color: #222;
 	height: 0.3em;
-}
-.bar:hover {
-	height: 1em;
 }
 .progress {
 	height: 100%;
@@ -262,6 +264,7 @@ pre {
 	padding: 0.2em 1em;
 	margin-left: 300px;
 	background-color: #EEE;
+	min-height: 90vh;
 }
 .langselect {
 	-ms-column-count: 3;
@@ -342,7 +345,7 @@ input:focus {
 		display:none;
 	}
 }
-#metadata {
+#playing:hover #metadata {
 	display:block;
 	font-size:0.7em;
 	margin:1em;
@@ -353,9 +356,6 @@ input:focus {
 	font-weight:bold;
 	padding-right:0.5em;
 }
-#metadata.closed {
-	display:none;
-}
 .slow {
 	background-color: #d2322d;
 	font-variant:small-caps;
@@ -363,4 +363,10 @@ input:focus {
 	font-size:0.7em;
 	text-align:center;
 	text-transform:lowercase;
+}
+#queuebuttons {
+	padding:0.5em 0.2em;
+}
+.hidden {
+	display:none;
 }

@@ -14,6 +14,7 @@ app.get( '/fs/*', function ( req, res ) {
 	var slug = '/' + decodeURI( req.params[0] );
 	slug = slug.substr( 0, slug.length - 1 ); // rm trailing slash
 	var path = config.get( 'fs.path' ) + slug;
+	var link = config.get( 'fs.link' )
 
 	fs.stat( path, function ( err, stats ) {
 		if ( err ) {
@@ -28,11 +29,22 @@ app.get( '/fs/*', function ( req, res ) {
 					throw err;
 				}
 				files = files.map( function ( f ) {
-					return {
-						isDirectory: fs.statSync( path+'/'+f ).isDirectory(),
-						name: f,
-						toString: function () { return f; }
-					};
+					try {
+						var stat = fs.statSync( path+'/'+f );
+						return {
+							isDirectory: stat.isDirectory(),
+							name: f,
+							toString: function () { return f; }
+						};
+					}
+					catch( e ) {
+						return {
+							isDirectory: false,
+							isError: true,
+							name: e,
+							toString: function () { return e.toString(); }
+						};
+					}
 				} );
 				host = req.connection.encrypted ? 'https://' : 'http://';
 				host += req.headers.host + '/raw';
@@ -40,7 +52,8 @@ app.get( '/fs/*', function ( req, res ) {
 					path: slug,
 					host: host,
 					files: files,
-					stats: stats
+					stats: stats,
+					show_link: link,
 				} );
 			} );
 		} else if ( !stats.isFile() ) {
