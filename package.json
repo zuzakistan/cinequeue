@@ -6,7 +6,9 @@
   "scripts": {
     "test": "mocha tests/",
     "lint": "nodejs scripts/lint.js",
-    "style": "nodejs scripts/style.js"
+    "style": "nodejs scripts/style.js",
+    "prepublish": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "precommit": [
     "lint",
@@ -28,10 +30,12 @@
     "express-slash": "~1.0.0",
     "mime": "~1.2.11",
     "body-parser": "~1.2.0",
-    "object-nester": "0.0.1"
+    "object-nester": "0.0.1",
+    "@snyk/protect": "latest"
   },
   "devDependencies": {
     "mocha": "~1.19.0",
     "precommit-hook": "~1.0.2"
-  }
+  },
+  "snyk": true
 }
